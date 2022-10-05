@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+#default region
 provider "aws" {
   region = "ap-south-1"
 }
