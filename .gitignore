@@ -1,0 +1,7 @@
+rates/__pycache__
+rates/.dockerignore
+opstask/
+tf-files/.terraform/*
+tf-files/.terraform/
+tf-files/.terraform.lock.hcl
+
