@@ -1,4 +1,4 @@
-resource "aws_vpc" "test-vpc" {
+resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -10,7 +10,7 @@ resource "aws_vpc" "test-vpc" {
 }
 #internet gateway
 resource "aws_internet_gateway" "ig" {
-  vpc_id = aws_vpc.test-vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
     Name = "${var.environment}-ig"
@@ -19,7 +19,7 @@ resource "aws_internet_gateway" "ig" {
 }
 #public subnet
 resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.test-vpc.id
+  vpc_id                  = aws_vpc.vpc.id
   count                   = length(var.public_subnets_cidr)
   cidr_block              = element(var.public_subnets_cidr, count.index)
   availability_zone       = element(var.availability_zones, count.index)
@@ -32,7 +32,7 @@ resource "aws_subnet" "public" {
 }
 #public route table
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.test-vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
     Name        = "${var.environment}-public-route-table"
@@ -72,7 +72,7 @@ resource "aws_nat_gateway" "nat" {
 
 # Private subnets
 resource "aws_subnet" "private" {
-  vpc_id                  = aws_vpc.test-vpc.id
+  vpc_id                  = aws_vpc.vpc.id
   count                   = length(var.private_subnets_cidr)
   cidr_block              = element(var.private_subnets_cidr, count.index)
   availability_zone       = element(var.availability_zones, count.index)
@@ -86,7 +86,7 @@ resource "aws_subnet" "private" {
 
 # Private subnets route table
 resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.test-vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
     Name        = "${var.environment}-private-route-table"
@@ -107,4 +107,4 @@ resource "aws_route_table_association" "private" {
   subnet_id      = element(aws_subnet.private.*.id, count.index)
   route_table_id = aws_route_table.private.id
 }
-#tested
+

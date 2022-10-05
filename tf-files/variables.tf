@@ -23,3 +23,8 @@ variable "availability_zones" {
   type        = list(string)
 
 }
+
+variable "s3-bucket" {
+  description = "Name of S3 Bucket"
+  type        = string
+}
