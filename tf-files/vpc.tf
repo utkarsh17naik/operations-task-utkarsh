@@ -101,7 +101,7 @@ resource "aws_route" "private_nat_gateway" {
   nat_gateway_id         = aws_nat_gateway.nat.id
 }
 
-# Associate the public route table to public subnets
+# Associate the private route table to private subnets
 resource "aws_route_table_association" "private" {
   count          = length(var.private_subnets_cidr)
   subnet_id      = element(aws_subnet.private.*.id, count.index)
