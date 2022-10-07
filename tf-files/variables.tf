@@ -28,3 +28,8 @@ variable "s3-bucket" {
   description = "Name of S3 Bucket"
   type        = string
 }
+
+variable "app-name" {
+  description = "Name of the Application"
+  type        = string
+}
