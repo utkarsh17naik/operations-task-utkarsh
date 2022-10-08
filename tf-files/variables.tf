@@ -36,12 +36,12 @@ variable "app-name" {
 
 variable "container_port" {
   description = "Specify Container port"
-  type        = string
+  type        = number
 }
 
 variable "host_port" {
   description = "Specify Host port"
-  type        = string
+  type        = number
 }
 
 variable "container_cpu" {
