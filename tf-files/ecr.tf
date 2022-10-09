@@ -3,3 +3,11 @@ resource "aws_ecr_repository" "app-ecr" {
   image_tag_mutability = "MUTABLE"
 }
 
+resource "aws_secretsmanager_secret" "ecr-repo" {
+  name = "${var.environment}-ecr"
+}
+
+resource "aws_secretsmanager_secret_version" "ecr-repo" {
+  secret_id     = aws_secretsmanager_secret.ecr-repo.id
+  secret_string = aws_ecr_repository.app-ecr.repository_url
+}

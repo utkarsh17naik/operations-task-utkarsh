@@ -1,9 +1,10 @@
-resource "random_string" "rds-db-password" {
+resource "random_password" "rds-db-password" {
   length  = 32
   upper   = true
   lower   = true
   numeric = true
   special = false
+
 }
 resource "aws_security_group" "rds-sg" {
   vpc_id      = aws_vpc.vpc.id
@@ -37,7 +38,7 @@ resource "aws_db_instance" "rds" {
   publicly_accessible    = true
   vpc_security_group_ids = [aws_security_group.rds-sg.id]
   username               = "postgres"
-  password               = random_string.rds-db-password.result
+  password               = random_password.rds-db-password.result
 }
 
 resource "aws_secretsmanager_secret" "rds-postgres-secret" {
@@ -48,7 +49,7 @@ resource "aws_secretsmanager_secret_version" "rds-postgres-secret" {
   secret_id = aws_secretsmanager_secret.rds-postgres-secret.id
   secret_string = jsonencode({
     "user" : "postgres",
-    "password" : random_string.rds-db-password.result,
+    "password" : random_password.rds-db-password.result,
     "name" : "postgres",
     "host" : aws_db_instance.rds.address
   })

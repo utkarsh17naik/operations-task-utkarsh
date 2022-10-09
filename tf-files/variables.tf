@@ -63,3 +63,9 @@ variable "port_mappings" {
   description = "Port mappings for ECS"
   type        = map(number)
 }
+
+variable "AWS_DEFAULT_REGION" {
+  description = "Default region for AWS"
+  type        = string
+  default     = "ap-south-1"
+}
