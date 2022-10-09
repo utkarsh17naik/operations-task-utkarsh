@@ -3,6 +3,7 @@ resource "aws_codebuild_source_credential" "github" {
   auth_type   = "PERSONAL_ACCESS_TOKEN"
   server_type = "GITHUB"
   token       = file("~/Downloads/git-token")
+
 }
 
 
@@ -13,7 +14,8 @@ resource "aws_codebuild_project" "build" {
   service_role  = aws_iam_role.codebuild-role.arn
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "S3"
+    path = "${aws_s3_bucket.lb_logs.bucket}/BuildArti"
   }
 
   cache {
@@ -38,7 +40,7 @@ resource "aws_codebuild_project" "build" {
 
     s3_logs {
       status   = "ENABLED"
-      location = "${aws_s3_bucket.lb_logs.id}/build-log"
+      location = "${aws_s3_bucket.codepipeline_bucket.id}/build-log"
     }
   }
 

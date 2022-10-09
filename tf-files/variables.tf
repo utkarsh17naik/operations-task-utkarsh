@@ -69,3 +69,5 @@ variable "AWS_DEFAULT_REGION" {
   type        = string
   default     = "ap-south-1"
 }
+
+

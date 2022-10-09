@@ -7,7 +7,8 @@ output "db-user" {
 }
 
 output "db-password" {
-  value = aws_db_instance.rds.password
+  value     = aws_db_instance.rds.password
+  sensitive = true
 }
 
 output "db-host" {

@@ -54,11 +54,12 @@ resource "aws_iam_role_policy" "codebuild-policy" {
         "ec2:CreateNetworkInterfacePermission"
       ],
       "Resource": [
-        "arn:aws:ec2:${var.AWS_DEFAULT_REGION}:123456789012:network-interface/*"
+        "arn:aws:ec2:${var.AWS_DEFAULT_REGION}:003750957579:network-interface/*"
       ],
       "Condition": {
         "StringEquals": {
-          "ec2:Subnet": "[for subnet in aws_subnet.private : subnet.id]",
+          "ec2:Subnet": ["${aws_subnet.private[0].arn}",
+          "${aws_subnet.private[1].arn}"],
           "ec2:AuthorizedService": "codebuild.amazonaws.com"
         }
       }
@@ -69,8 +70,8 @@ resource "aws_iam_role_policy" "codebuild-policy" {
         "s3:*"
       ],
       "Resource": [
-        "${aws_s3_bucket.lb_logs.arn}",
-        "${aws_s3_bucket.lb_logs.arn}/*"
+        "${aws_s3_bucket.codepipeline_bucket.arn}",
+        "${aws_s3_bucket.codepipeline_bucket.arn}/*"
       ]
     }
   ]
@@ -81,4 +82,8 @@ POLICY
 resource "aws_iam_role_policy_attachment" "codebuild-role-policy-attachment" {
   role       = aws_iam_role.codebuild-role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
+}
+resource "aws_iam_role_policy_attachment" "codebuild-secret" {
+  role       = aws_iam_role.codebuild-role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
 }
