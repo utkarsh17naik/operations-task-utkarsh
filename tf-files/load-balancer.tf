@@ -1,14 +1,12 @@
-resource "aws_s3_bucket" "lb_logs" {
-  bucket = var.s3-bucket
-
-}
 resource "aws_lb" "alb" {
+
   name               = "${var.environment}-lb"
   internal           = false
   load_balancer_type = "application"
   subnets            = [for subnet in aws_subnet.public : subnet.id]
+  security_groups    = [aws_security_group.alb-sg.id]
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   access_logs {
     bucket  = aws_s3_bucket.lb_logs.bucket
@@ -19,10 +17,11 @@ resource "aws_lb" "alb" {
   tags = {
     Environment = var.environment
   }
+
 }
 
-resource "aws_security_group" "alb" {
-  name   = "${aws_lb.alb.name}-sg"
+resource "aws_security_group" "alb-sg" {
+  name   = "${var.app-name}-lb-sg"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
@@ -69,12 +68,14 @@ resource "aws_alb_target_group" "alb-tg" {
 }
 
 resource "aws_alb_listener" "http" {
-  load_balancer_arn = aws_lb.alb.id
+  load_balancer_arn = aws_lb.alb.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.alb-tg.id
+    target_group_arn = aws_alb_target_group.alb-tg.arn
     type             = "forward"
   }
 }
+
+

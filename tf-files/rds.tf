@@ -16,13 +16,23 @@ resource "aws_security_group" "rds-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_db_subnet_group" "default" {
+  name       = "main"
+  subnet_ids = [for subnet in aws_subnet.private : subnet.id]
+
+  tags = {
+    Name = "${var.app-name}-${var.environment}-subnet-grp"
+  }
+}
 resource "aws_db_instance" "rds" {
   identifier             = "${var.environment}-rds-postgres"
   db_name                = "postgres"
-  instance_class         = "db.t2.micro"
+  instance_class         = "db.t3.micro"
   allocated_storage      = 50
   engine                 = "postgres"
   engine_version         = "13.5"
+  db_subnet_group_name   = aws_db_subnet_group.default.name
   skip_final_snapshot    = true
   publicly_accessible    = true
   vpc_security_group_ids = [aws_security_group.rds-sg.id]
@@ -30,12 +40,12 @@ resource "aws_db_instance" "rds" {
   password               = random_string.rds-db-password.result
 }
 
-resource "aws_secretsmanager_secret" "rds-secret" {
-  name = "${var.environment}-rds-secret"
+resource "aws_secretsmanager_secret" "rds-postgres-secret" {
+  name = "${var.app-name}-${var.environment}-rds-secret"
 }
 
-resource "aws_secretsmanager_secret_version" "rds-secret" {
-  secret_id = aws_secretsmanager_secret.rds-secret.id
+resource "aws_secretsmanager_secret_version" "rds-postgres-secret" {
+  secret_id = aws_secretsmanager_secret.rds-postgres-secret.id
   secret_string = jsonencode({
     "user" : "postgres",
     "password" : random_string.rds-db-password.result,
