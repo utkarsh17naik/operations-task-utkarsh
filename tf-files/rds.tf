@@ -50,6 +50,6 @@ resource "aws_secretsmanager_secret_version" "rds-postgres-secret" {
     "user" : "postgres",
     "password" : random_string.rds-db-password.result,
     "name" : "postgres",
-    "host" : aws_db_instance.rds.endpoint
+    "host" : aws_db_instance.rds.address
   })
 }
