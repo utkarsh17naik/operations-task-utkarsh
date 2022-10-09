@@ -10,7 +10,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=$(aws secretsmanager get-secret-value --secret-id dev-ecr --query SecretString)
+      - REPOSITORY_URI=$(aws secretsmanager get-secret-value --secret-id dev-ecr --query SecretString --output text)
       - IMAGE_TAG=latest
       - echo $REPOSITORY_URI:$IMAGE_TAG
       - ls -al
