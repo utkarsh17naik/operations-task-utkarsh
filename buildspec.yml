@@ -27,8 +27,9 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - cd ../
       - echo Writing image definitions file...
       - printf '[{"name":"rates-api-dev","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitionsdev.json
       - cat imagedefinitionsdev.json
 artifacts:
-  files: rates/imagedefinitionsdev.json
+  files: imagedefinitionsdev.json
