@@ -1,13 +1,4 @@
 
-resource "aws_codebuild_source_credential" "github" {
-  auth_type   = "PERSONAL_ACCESS_TOKEN"
-  server_type = "GITHUB"
-  token       = file("~/Downloads/git-token")
-
-}
-
-
-
 resource "aws_codebuild_project" "build" {
   name          = "${var.app-name}-${var.environment}-build"
   build_timeout = "60"
