@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo DB = $(aws secretsmanager get-secret-value --secret-id rates-api-dev-rds-secret --query SecretString --output text) > rates/config.py
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=$(aws secretsmanager get-secret-value --secret-id dev-ecr --query SecretString --output text)
+      - IMAGE_TAG=latest
+      - echo $REPOSITORY_URI:$IMAGE_TAG
+      - ls -al
+  build:
+    commands:
+      - cd rates
+      - echo `pwd`
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - cd ../
+      - echo Writing image definitions file...
+      - printf '[{"name":"rates-api-dev","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitionsdev.json
+      - cat imagedefinitionsdev.json
+artifacts:
+  files: imagedefinitionsdev.json
