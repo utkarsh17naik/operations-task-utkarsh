@@ -5,8 +5,7 @@ resource "aws_codebuild_project" "build" {
   service_role  = aws_iam_role.codebuild-role.arn
 
   artifacts {
-    type = "S3"
-    path = "${aws_s3_bucket.codepipeline_bucket.bucket}/BuildArti"
+    type = "NO_ARTIFACTS"
   }
 
   cache {
