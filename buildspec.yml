@@ -31,4 +31,4 @@ phases:
       - printf '[{"name":"rates-api-dev","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitionsdev.json
       - cat imagedefinitionsdev.json
 artifacts:
-  files: imagedefinitionsdev.json
+  files: rates/imagedefinitionsdev.json
