@@ -15,12 +15,12 @@ resource "aws_codebuild_project" "build" {
 
   artifacts {
     type = "S3"
-    path = "${aws_s3_bucket.lb_logs.bucket}/BuildArti"
+    path = "${aws_s3_bucket.codepipeline_bucket.bucket}/BuildArti"
   }
 
   cache {
     type     = "S3"
-    location = aws_s3_bucket.lb_logs.bucket
+    location = aws_s3_bucket.codepipeline_bucket.bucket
   }
 
   environment {
