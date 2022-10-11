@@ -14,3 +14,4 @@ port_mappings = {
   containerPort : 80,
   hostPort : 80
 }
+ami = "ami-024c319d5d14b463e"
