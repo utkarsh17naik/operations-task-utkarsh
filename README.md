@@ -1,32 +1,15 @@
 # Xeneta Operations Task
 
-The task is two-fold:
 
-* A practical case of developing a deployable development environment based on a simple application.
-
-* A theoretical case describing and evolving a data ingestion pipeline.
-
-You will be expected to present and discuss both solutions.
-
-Some general points:
-
-* **Provide the solution as a public git repository that can easily be cloned by our development team.**
-
-* Provide any instructions needed to run the automation solution in `README.md`.
-
-* The configuration file `rates/config.py` has some defaults that will most likely change depending on the solution. It would be beneficial to have a way to more dynamically pass in config values.
-
-* List and describe the tool(s) used, and why they were chosen for the task.
-
-* If you have any questions, please don't hesitate to contact us.
 
 ## Practical case: Deployable development environment
 
-### Premise
+### Pre-requisite
+ - AWS CLI
+ - AWS Access credentials/IAM Role attached to the instance
+ - Terraform 0.14
 
-Provided are two simplified parts of the same application environment: A database dump and an API service. Your task is to automate setting up the development environment in a reliable and testable manner using "infrastructure as code" principles.
 
-The goal is to end up with a limited set of commands that would install the different environments and run them using containers. You can use any software that you find suitable for the task. The code should come with instructions on how to run and deploy it.
 
 ### Running the database
 
