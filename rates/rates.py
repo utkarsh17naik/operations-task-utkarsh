@@ -100,7 +100,7 @@ def create_app():
                 ) d
                 LEFT OUTER JOIN (
                     SELECT AVG(price) AS price, day, COUNT(*) AS count
-                    FROM "prices"
+                    FROM public.prices
                     WHERE
                         orig_code = %(orig_code)s AND
                         dest_code = %(dest_code)s AND
