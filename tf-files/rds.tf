@@ -28,7 +28,7 @@ resource "aws_db_subnet_group" "default" {
 }
 resource "aws_db_instance" "rds" {
   identifier             = "${var.environment}-rds-postgres"
-  db_name                = "postgres"
+  db_name                = "rates"
   instance_class         = "db.t3.micro"
   allocated_storage      = 50
   engine                 = "postgres"
