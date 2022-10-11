@@ -5,7 +5,7 @@
 ## Practical case: Deployable development environment
 
 ### Summary of Solution
-Deployed a managed and severless containerised solution on AWS using ECS and Fargate. Terraform was used an IAC for automating application infratructure setup and pipeline setup on AWS. The solution includes automated import of data after infra setup and updation of config.py DB values during deployment.
+Deployed a managed and severless containerised solution on AWS using ECS and Fargate. Terraform was used as an IAC for automating application infratructure setup and pipeline setup on AWS. The solution includes automated import of data after infra setup and updation of config.py DB values during deployment.
 
 ### Tools/Services
 - IAC : Terraform
@@ -33,6 +33,14 @@ To apply the changes, run the below command.
 ```
 terraform apply -var-file=values.tfvars
 ```
+### Post Infra creation steps
+#### 1. Github validation
+Currently Codepipeline does no accept any Github related credentials via terraform. We have to login our Github credentials via AWS Console in Codepipeline.
+
+
+![xen-update-connection](https://user-images.githubusercontent.com/34398133/195197078-3060a5c9-82ae-4a2b-b0a3-a7a48b09dcdb.png)
+
+#### 2. Buildspec file
 
 
 ### Running the database
