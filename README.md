@@ -4,6 +4,9 @@
 
 ## Practical case: Deployable development environment
 
+### Summary of Solution
+Deployed a managed and severless containerised solution on AWS using ECS and Fargate. Terraform was used an IAC for automating application infratructure setup on AWS. 
+
 ### Pre-requisite
  - AWS CLI
  - AWS Access credentials/IAM Role attached to the instance
@@ -16,7 +19,7 @@ cd tf-files/
 terraform init
 terraform plan -var-file=values.tfvars
 ```
-Review the infra to to created/modified.Here, you might be prompted to enter your public key. The same key would be utilized while creating bastion host.
+Review the infra to be created/modified.Here, you might be prompted to enter your public key. The same key would be utilized while creating bastion host.
 To apply the changes, run the below command.
 ```
 terraform apply -var-file=values.tfvars
