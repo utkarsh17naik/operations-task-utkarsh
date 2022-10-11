@@ -4,6 +4,15 @@
 
 ## Practical case: Deployable development environment
 
+### Summary of Solution
+Deployed a managed and severless containerised solution on AWS using ECS and Fargate. Terraform was used an IAC for automating application infratructure setup and pipeline setup on AWS. The solution includes automated import of data after infra setup and updation of config.py DB values during deployment.
+
+### Tools/Services
+- IAC : Terraform
+- Database: RDS Postgres
+- CI/CD: AWS Codepipeline
+- Containerization: ECS
+
 ### Pre-requisite
  - AWS CLI
  - AWS Access credentials/IAM Role attached to the instance
@@ -12,11 +21,14 @@
 ### Infra setup steps
 ```
 git clone https://github.com/utkarsh17naik/operations-task-utkarsh.git
+```
+Here we have stored terraform files in the tf-files directory
+```
 cd tf-files/
 terraform init
 terraform plan -var-file=values.tfvars
 ```
-Review the infra to to created/modified.Here, you might be prompted to enter your public key. The same key would be utilized while creating bastion host.
+Review the infra to be created/modified.Here, you might be prompted to enter your public key. The same key would be utilized while creating bastion host.
 To apply the changes, run the below command.
 ```
 terraform apply -var-file=values.tfvars
