@@ -18,6 +18,8 @@ Deployed a managed and severless containerised solution on AWS using ECS and Far
  - AWS CLI
  - AWS Access credentials/IAM Role attached to the instance
  - Terraform 0.14
+ 
+ IAM User/Role should have List,Read,Write and Tagging access of the following services: EC2, S3, VPC, ECS, Codepipeline, Codebuild, IAM, Secret Manager, RDS, ELB, Cloudwatch
 
 ### Infra setup steps
 ```
