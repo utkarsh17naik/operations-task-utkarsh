@@ -16,10 +16,10 @@ Deployed a managed and severless containerised solution on AWS using ECS and Far
 
 ### Pre-requisite
  - AWS CLI
- - AWS Access credentials/IAM Role attached to the instance
+ - AWS Access credentials/IAM Role attached to an instance
  - Terraform 0.14
  
- IAM User/Role should have List,Read,Write and Tagging access of the following services: EC2, S3, VPC, ECS, Codepipeline, Codebuild, IAM, Secret Manager, RDS, ELB, Cloudwatch
+ IAM User/Role should have List,Read,Write and Tagging access of the following services: EC2, S3, VPC, ECS, ECR, Codepipeline, Codebuild, IAM, Secret Manager, RDS, ELB, Cloudwatch
 
 ### Infra setup steps
 ```
@@ -38,12 +38,16 @@ terraform apply -var-file=values.tfvars
 ```
 ### Post Infra creation steps
 #### 1. Github validation
-Currently Codepipeline does no accept any Github related credentials via terraform. We have to login our Github credentials via AWS Console in Codepipeline.
+Currently Codepipeline does not accept any Github related credentials via terraform. We have to login our Github credentials via AWS Console in Codepipeline.
 
 
 ![xen-update-connection](https://user-images.githubusercontent.com/34398133/195197078-3060a5c9-82ae-4a2b-b0a3-a7a48b09dcdb.png)
 
 #### 2. Buildspec file
+
+Review the container name in buildspec.yml file (in post build steps) with the one defined in Terraform.
+
+![buildspec1](https://user-images.githubusercontent.com/34398133/195406528-be18a078-dbcc-42e4-b275-20a00081beb9.png)
 
 
 ### Running the database
