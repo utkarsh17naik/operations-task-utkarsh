@@ -7,13 +7,21 @@
 Deployed a managed and severless containerised solution on AWS using ECS and Fargate. Terraform was used as an IAC for automating application infratructure setup and pipeline setup on AWS. The solution includes automated import of data after infra setup and updation of config.py DB values during deployment.
 
 ### Tools/Services
-- IAC : Terraform
-- Database: RDS Postgres
-- CI/CD: AWS Codepipeline
-- Containerization: ECS
-- Monitoring/Logs: Cloudwatch
-- Logs/Artifact Storage: S3
-- Secrets values holder: AWS Secrets Manager
+- IAC : Terraform - Terraform was used as an IAC tool due to its syntax readbility, flexibility, ease of upgrading/downgrading of infra along with proper clarity on the impact of our every small change to the code before we apply the changes. Also terraform supports 50+ providers so it can be useful in case of multi-cloud, third party supported tools and ease of multi account implementation.
+
+- Database: RDS Postgres - RDS scores over a database locally installed on a VM in terms of uptime, patch updates, availability and scalability.
+
+- CI/CD: AWS Codepipeline - Along with seamless CI/CD workflow and support for Blue Green deployments, AWS Codepipeline is efficient in natively integrating with several other AWS services like ECS, Autoscaling, Cloudformation, Cloudwatch etc which gives it an edge over other CI/CD solutions with regards to implementation on AWS. 
+
+- Containerization: ECS (Elastic Container Service) - Ease of setup and managed service befenits like reliability and scalbility give it an edge over traditional docker deployments. It is useful to manage several containers at a time.
+
+- Container Registory:  ECR (Elastic Container Registry) - Enterprise Container Images Registry service by AWS. Some advatagaes are high availability, security and reliabiity.
+
+- Monitoring/Logs: Cloudwatch - Cloudwatch has native integration with several AWS services for logs, metrics and events. Along with setting alarms for logs, metrics and other factors, we can perform actions based on the same like autoscaling, shutting down instance, email alerts, etc based on alarm state.
+
+- Logs/Artifact Storage: S3 is a cost effective and reliable global storage service where we can store, update or fetch data from anywhere. Older logs/artifacts can be moved easily to S3 Infrequent Access or Glacier for cost savings
+
+- Secrets Store: AWS Secrets Manager - AWS Secrets Manager is useful for storing and retriving senstive data like passwords, keys, personal data, etc.
 
 ### Pre-requisite
  - AWS CLI
