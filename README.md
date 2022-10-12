@@ -1,7 +1,6 @@
 # Xeneta Operations Task
 
 
-
 ## Practical case: Deployable development environment
 
 ### Summary of Solution
@@ -13,6 +12,8 @@ Deployed a managed and severless containerised solution on AWS using ECS and Far
 - CI/CD: AWS Codepipeline
 - Containerization: ECS
 - Monitoring/Logs: Cloudwatch
+- Logs/Artifact Storage: S3
+- Secrets values holder: AWS Secrets Manager
 
 ### Pre-requisite
  - AWS CLI
@@ -54,83 +55,10 @@ The Terraform code will proceed with creating the network resources such as VPC,
 
 ![task-output](https://user-images.githubusercontent.com/34398133/195433616-838c0bc2-6f39-4ea9-bd63-eb3ccf7a5734.png)
 
-We can map the same to a domain as well.
+We can map the same to a domain as well using Route 53 or any other DNS provider.
 
-
-### Running the database
-
-There’s an SQL dump in `db/rates.sql` that needs to be loaded into a PostgreSQL 13.5 database.
-
-After installing the database, the data can be imported through:
-
-```
-createdb rates
-psql -h localhost -U postgres < db/rates.sql
-```
-
-You can verify that the database is running through:
-
-```
-psql -h localhost -U postgres -c "SELECT 'alive'"
-```
-
-The output should be something like:
-
-```
- ?column?
-----------
- alive
-(1 row)
-```
-
-### Running the API service
-
-Start from the `rates` folder.
-
-#### 1. Install prerequisites
-
-```
-DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y python3-pip
-pip install -U gunicorn
-pip install -Ur requirements.txt
-```
-
-#### 2. Run the application
-```
-gunicorn -b :3000 wsgi
-```
-
-The API should now be running on [http://localhost:3000](http://localhost:3000).
-
-#### 3. Test the application
-
-Get average rates between ports:
-```
-curl "http://127.0.0.1:3000/rates?date_from=2021-01-01&date_to=2021-01-31&orig_code=CNGGZ&dest_code=EETLL"
-```
-
-The output should be something like this:
-```
-{
-   "rates" : [
-      {
-         "count" : 3,
-         "day" : "2021-01-31",
-         "price" : 1154.33333333333
-      },
-      {
-         "count" : 3,
-         "day" : "2021-01-30",
-         "price" : 1154.33333333333
-      },
-      ...
-   ]
-}
-```
 
 ## Case: Data ingestion pipeline
-
-In this section we are seeking high-level answers, use a maximum of couple of paragraphs to answer the questions.
 
 ### Extended service
 
