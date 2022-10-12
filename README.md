@@ -63,8 +63,7 @@ We can map the same to a domain as well using Route 53 or any other DNS provider
 ### Extended service
 
 #### Architecture
-![Task2 drawio](https://user-images.githubusercontent.com/34398133/195437210-6b1c923b-e181-4cac-9062-2b435fdfbae9.png)
-
+![Untitled Diagram drawio](https://user-images.githubusercontent.com/34398133/195438651-09624f53-9ea5-44ea-a652-ef92e1989639.png)
 
 Imagine that for providing data to fuel this service, you need to receive and insert big batches of new prices, ranging within tens of thousands of items, conforming to a similar format. Each batch of items needs to be processed together, either all items go in, or none of them do.
 
