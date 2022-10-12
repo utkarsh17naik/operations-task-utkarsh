@@ -75,15 +75,14 @@ AWS Batch is specifically designed for running large workloads parallely as a ma
 
 ### Additional questions
 
-Here are a few possible scenarios where the system requirements change or the new functionality is required:
-
 1. The batch updates have started to become very large, but the requirements for their processing time are strict.
+
+Answer: AWS Batch compute provisioning time for a ready job in the queue can sometimes be a bottleneck in this scenario, especially in case of minimum instances set to zero. Also, in case of very large batch updates, Fargate might not be suitable as it doesn't support GPUs currently. Therefore, it will be wise to keep minimum instance of 1 in case of expeted large batch updates which will reduce the compute provioning time for ready jobs. Also, instead of fargate, ECS with EC2 nodes should be selected in AWS Batch for the option of GPU instance classes. For database, Aurora needs to be used in place of regular RDS with Multi AZ replica nodes and autoscaling enabled for both instance and disk.
 
 2. Code updates need to be pushed out frequently. This needs to be done without the risk of stopping a data update already being processed, nor a data response being lost.
 
+Answer: Frequent Code Update and subsequent frequent deployments can be a bottleneck as the application might momentarily loose connectivity with the database or might suffer minor downtime which might result in loss of data or inconsistant data due to the user activity during deployment. The solution to this is using Blue Green deployment provided by Codedeploy/Codepipeline. It is a costly option but will create an identical (Green) environment to the existing (Blue). While the blue environment is stable, changes can be applied and tested on the green environment. Once stable, the traffic can be routed to the green environment while deployments go on in blue environment. Using Aurora, database can be scaled to accomodate traffic from two environments with occasional high or low rates. This will ensure that neither loss of data nor stoppage of data update takes place
+
 3. For development and staging purposes, you need to start up a number of scaled-down versions of the system.
 
-Please address *at least* one of the situations. Please describe:
-
-- Which parts of the system are the bottlenecks or problems that might make it incompatible with the new requirements?
-- How would you restructure and scale the system to address those?
+Answer: For development and staging environments, scaled down environment is ok in initial phases when features are less, traffic is negligible and cost saving is important. As features increases, the low configurations become bottlenecks in the intended flow of the application. This may lead to an overall delay in the timeline as due to dependency of any one bottleneck, implmenetation and testing of critical features takes considerable time.Also it is difficult to predict how much load can be handled by the application if the ennvironment is scaled down too much as we cannot directly test the same on production. Setting up auto scaling, using serverless services like lambda, Shutting down non-production systems during night hours and weekends are comparatively better ways of saving cost rather than downscaling the enviroments more than required.
