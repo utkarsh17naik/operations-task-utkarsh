@@ -12,6 +12,7 @@ Deployed a managed and severless containerised solution on AWS using ECS and Far
 - Database: RDS Postgres
 - CI/CD: AWS Codepipeline
 - Containerization: ECS
+- Monitoring/Logs: Cloudwatch
 
 ### Pre-requisite
  - AWS CLI
