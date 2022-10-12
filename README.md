@@ -39,7 +39,7 @@ terraform apply -var-file=values.tfvars
 ```
 ### Post Infra creation steps
 #### 1. Github validation
-Currently Codepipeline does not accept any Github related credentials via terraform. We have to login our Github credentials via AWS Console in Codepipeline.
+Currently Codepipeline does not accept any Github related credentials via terraform. It would setup the github repository and branch in the Source stage but would show conection as "Update pending connection" .We have to login our Github credentials and grant access to Codepipeline via AWS Console in Codepipeline-->Edit-->Edit Stage(Source).
 
 
 ![xen-update-connection](https://user-images.githubusercontent.com/34398133/195197078-3060a5c9-82ae-4a2b-b0a3-a7a48b09dcdb.png)
@@ -61,6 +61,10 @@ We can map the same to a domain as well using Route 53 or any other DNS provider
 ## Case: Data ingestion pipeline
 
 ### Extended service
+
+#### Architecture
+![Task2 drawio](https://user-images.githubusercontent.com/34398133/195437210-6b1c923b-e181-4cac-9062-2b435fdfbae9.png)
+
 
 Imagine that for providing data to fuel this service, you need to receive and insert big batches of new prices, ranging within tens of thousands of items, conforming to a similar format. Each batch of items needs to be processed together, either all items go in, or none of them do.
 
