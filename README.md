@@ -19,7 +19,7 @@ Deployed a managed and severless containerised solution on AWS using ECS and Far
  - AWS Access credentials/IAM Role attached to an instance
  - Terraform 0.14
  
- IAM User/Role should have List,Read,Write and Tagging access of the following services: EC2, S3, VPC, ECS, ECR, Codepipeline, Codebuild, IAM, Secret Manager, RDS, ELB, Cloudwatch
+ IAM User/Role should have List,Read,Write and Tagging access of the following services: EC2, S3, VPC, ECS, ECR, Codepipeline, Codebuild, Codedeploy, IAM, Secrets Manager, RDS, ELB, Cloudwatch
 
 ### Infra setup steps
 ```
@@ -50,9 +50,11 @@ Review the container name in buildspec.yml file (in post build steps) with the o
 ![buildspec1](https://user-images.githubusercontent.com/34398133/195406528-be18a078-dbcc-42e4-b275-20a00081beb9.png)
 
 ### Output 
-The Terraform code will proceed with creating the network resources such as VPC, Internet Gateway, NAT Gateway, Application Load Balancer followed by ECS, RDS, Codepipeline for a CI/CD enabled managed containerised environment. Post creation, a script run at launch of the EC2 jumphost will import the data into the newly created RDS Postgres Database. We can hit the load balancer endpoint to get the required output of the API as shown below.
+The Terraform code will proceed with creating the network resources such as VPC, Internet Gateway, NAT Gateway, Application Load Balancer followed by ECS, RDS, Codepipeline for a CI/CD enabled managed containerised environment. The config variables like db credentials are stored in secrets manager whose updated values are fetched during pre-build phase. Post creation, a script run at launch of the EC2 jumphost will import the data into the newly created RDS Postgres Database. We can hit the load balancer endpoint to get the required output of the API as shown below.
 
+![task-output](https://user-images.githubusercontent.com/34398133/195433616-838c0bc2-6f39-4ea9-bd63-eb3ccf7a5734.png)
 
+We can map the same to a domain as well.
 
 
 ### Running the database
