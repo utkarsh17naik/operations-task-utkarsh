@@ -49,6 +49,11 @@ Review the container name in buildspec.yml file (in post build steps) with the o
 
 ![buildspec1](https://user-images.githubusercontent.com/34398133/195406528-be18a078-dbcc-42e4-b275-20a00081beb9.png)
 
+### Output 
+The Terraform code will proceed with creating the network resources such as VPC, Internet Gateway, NAT Gateway, Application Load Balancer followed by ECS, RDS, Codepipeline for a CI/CD enabled managed containerised environment. Post creation, a script run at launch of the EC2 jumphost will import the data into the newly created RDS Postgres Database. We can hit the load balancer endpoint to get the required output of the API as shown below.
+
+
+
 
 ### Running the database
 
