@@ -63,19 +63,15 @@ We can map the same to a domain as well using Route 53 or any other DNS provider
 ### Extended service
 
 #### Architecture
+
 ![Untitled Diagram drawio](https://user-images.githubusercontent.com/34398133/195438651-09624f53-9ea5-44ea-a652-ef92e1989639.png)
 
-Imagine that for providing data to fuel this service, you need to receive and insert big batches of new prices, ranging within tens of thousands of items, conforming to a similar format. Each batch of items needs to be processed together, either all items go in, or none of them do.
+#### Explanation
 
-Both the incoming data updates and requests for data can be highly sporadic - there might be large periods without much activity, followed by periods of heavy activity.
+Considering the unpredictable nature of volumes of data to be ingested and the requirement of High Availability, the critical aspects or possible bottlenecks can be the capacity of the server ingesting the data into the database and the capabilities of the database to manage large amount of incoming data ingestion along side the existing traffic from the application in a way that regular application usage and activities are not affected. Also, expanding the storage withinn less time considering large amounts of incoming data can be a critical point. Due to the mentioned reasons, AWS Batch and Amazon Aurora for compute and database respectively would be suitable for this scenario.
 
-High availability is a strict requirement from the customers.
+AWS Batch is specifically designed for running large workloads parallely as a managed service (although it has unmanaged options as well). The compute environment, which uses ECS with either EC2 instances or Fargate is provisioned according to each jobs priority in the queue and workload requirements. We can specify the instances types, family and the minimum, maximum and desired instances. Keeping minimum instances as 0 will save a lot of cost as instances will be provisioned only when a job is ready to run will terminate after the job is complete. For Database, Amazon Aurora has much more capabilities in terma of scalability, availablity, disaster recovery and effectively balancing traffic. It can scale up or down in very less time according to requirements. For monitoring and alerts, we can use Cloudwatch along with Simple Notification Service(SNS) to send notifications once a decided threshhold is crossed. The Cloudwatch alarms based on selected metrics like cpu utilization, memory utlization can be useful to upscale or downscale the infra based on the load.
 
-* How would you design the system?
-* How would you set up monitoring to identify bottlenecks as the load grows?
-* How can those bottlenecks be addressed in the future?
-
-Provide a high-level diagram, along with a few paragraphs describing the choices you've made and what factors you need to take into consideration.
 
 ### Additional questions
 
