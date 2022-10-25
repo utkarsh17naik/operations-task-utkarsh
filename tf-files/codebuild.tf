@@ -43,7 +43,7 @@ resource "aws_codebuild_project" "build" {
     }
   }
 
-  source_version = "master"
+  source_version = "test"
 
   vpc_config {
     vpc_id             = aws_vpc.vpc.id

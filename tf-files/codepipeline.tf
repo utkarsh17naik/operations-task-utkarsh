@@ -22,7 +22,7 @@ resource "aws_codepipeline" "codepipeline" {
       configuration = {
         ConnectionArn    = aws_codestarconnections_connection.codepipeline-source.arn
         FullRepositoryId = "utkarsh17naik/operations-task-utkarsh"
-        BranchName       = "master"
+        BranchName       = "test"
       }
     }
   }
