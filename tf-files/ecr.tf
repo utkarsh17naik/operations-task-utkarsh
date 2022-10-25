@@ -4,7 +4,7 @@ resource "aws_ecr_repository" "app-ecr" {
 }
 
 resource "aws_secretsmanager_secret" "ecr-repo" {
-  name = "${var.environment}-ecr"
+  name = "${var.environment}-ecr-repo-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "ecr-repo" {

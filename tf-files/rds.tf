@@ -42,7 +42,7 @@ resource "aws_db_instance" "rds" {
 }
 
 resource "aws_secretsmanager_secret" "rds-postgres-secret" {
-  name = "${var.app-name}-${var.environment}-rds-secret"
+  name = "${var.app-name}-${var.environment}-rds-secret-postgres"
 }
 
 resource "aws_secretsmanager_secret_version" "rds-postgres-secret" {
