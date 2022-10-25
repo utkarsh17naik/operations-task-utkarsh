@@ -4,4 +4,5 @@ opstask/
 tf-files/.terraform/*
 tf-files/.terraform/
 tf-files/.terraform.lock.hcl
+tf-files/terraform.tfstate
 
