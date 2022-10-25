@@ -90,7 +90,7 @@ resource "aws_s3_bucket_acl" "codepipeline_bucket_acl" {
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "test-role"
+  name = "${var.app-name}-${var.environment}-codepipeline-role"
 
   assume_role_policy = <<EOF
 {

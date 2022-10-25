@@ -74,7 +74,6 @@ variable "public-key" {
   description = "Enter your public key"
   type        = string
   sensitive   = true
-  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCswVScXRwofq3QRmBhYH+lX25uZkYjj25VYuQQzqgjwbnWpq/PGZbzzGLu751mxhKKlWRyd/5n3wUwHd46Ib9PNFY1bs3zDgRip0bINyW9vz8Fo01qYyTHi4/6aA+DvmCzlqMSm3H7cZn35LvNHpBTvj3I9+hkxDldYPQe2u2+Sv+8DDRtaJIlF1R3xDX6hv4Inr/+02TuLvj2MD3QUQt/0IqyJI5oMDsozQWeAaVRgFriZaZQbNpyfUd4B0RjRL7nUBHyY8izT72FLnD512XcyZ1O0Ka/YeeeKUfjV5Tt2lK/1s21kJnqweIDW642vC9IEPNb5luRahrApuPpY3k/6B3zmjZuvMFP3OSGpkLNn8WFiVro+ocCwhCKcwd8Lo3wwuFbEBwBK7vkXWOdx7N1RH3UXmHhJCyJCp2vntPf0mN5dRZmf6GE1nHaB/VxGaiFZcROfECqHZZRafbj0CyFe3Z95wF4Y6VjN5AeNpK6VdQ4EQNZm6HF/Yj48zh4m0M= neosoft@neosoft"
 }
 
 variable "ami" {
